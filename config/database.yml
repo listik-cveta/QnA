@@ -78,8 +78,3 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: QnA_production
-  username: QnA
-  password: <%= ENV['QNA_DATABASE_PASSWORD'] %>
