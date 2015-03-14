@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
-  validates :title, presence: true
-  validates :body, presence: true
+  has_many :answers
+  validates :title, :body, presence: true
+  validates :title, length: { maximum: 70 }
 end
