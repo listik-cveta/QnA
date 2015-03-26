@@ -47,6 +47,5 @@ end
 
 
 gem 'shoulda-matchers'
-#gem 'haml-rails'
 gem 'slim-rails'
 gem 'twitter-bootstrap-rails'
