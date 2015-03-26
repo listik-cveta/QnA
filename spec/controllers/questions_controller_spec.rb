@@ -78,10 +78,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect(assigns(:question)).to eq question
       end
       it 'changes question attributes' do
-        patch :update, id: question, question: {title: 'new title', body: 'new body'}
+        patch :update, id: question, question: {title: 'MyAnswerisfirstanswer', body: 'new body'}
         question.reload
-        expect(question.title).to eq 'new title'
-        expect(question.body).to eq 'new body'
+        expect(question.title).to eq 'MyAnswerisfirstanswer'
+        expect(question.body).to eq 'MyTextblablablablabla'
       end
       it 'redirect to the updated question' do
         patch :update, id: question, question: attributes_for(:question)
@@ -89,13 +89,13 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
     context 'invalid attributes' do
-      before {patch :update, id: question, question: {title: 'new title', body: nil}}
+      before { patch :update, id: question, question: {title: 'MyAnswerisfirstanswer', body: nil} }
 
       it 'does not change question attributes' do
 
         question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq 'MyAnswerisfirstanswer'
+        expect(question.body).to eq 'MyTextblablablablabla'
       end
       it 're-renders edit view' do
         expect(response).to render_template :edit
@@ -103,15 +103,15 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-   describe 'DELETE #destroy' do
-     before { question }
-   it 'deletes question' do
-     expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
-   end
-   it 'redirect to index view' do
-     delete :destroy, id: question
-     expect(response).to redirect_to question_path
-   end
-   end
+  describe 'DELETE #destroy' do
+    before { question }
+    it 'deletes question' do
+      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+    end
+    it 'redirect to index view' do
+      delete :destroy, id: question
+      expect(response).to redirect_to question_path
+    end
   end
+end
 
