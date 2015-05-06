@@ -1,0 +1,18 @@
+h1= @question.title
+
+
+- if @question.answers.empty?
+  |No comments here
+- else
+  h3 Comments
+  - @question.answers.each do |answer|
+    div= answer.body
+    - if user_signed_in? && current_user.id == answer.user_id
+      = link_to 'Delete answer', answer, method: :delete
+br
+- if user_signed_in? && current_user.id == @question.user_id
+  = link_to 'Delete question', question_path(@question), method: :delete
+  =form_for([@question, @question.answers.build]) do |f|
+    =f.label :body
+    =f.text_area :body
+    p= f.submit 'Add answer'
