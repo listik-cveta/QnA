@@ -13,28 +13,29 @@ RSpec.describe AnswersController, type: :controller do
     context 'with valid attributes' do
 
       it 'added new answer to his question' do
-        expect { post :create, answer: attributes_for(:answer), question_id: question }.to change(question.answers, :count).by(1)
+        expect { post :create, answer: attributes_for(:answer), question_id: question, format: :js }.to change(question.answers, :count).by(1)
+
       end
 
       it 'added new answer to his question by user' do
-        expect { post :create, answer: attributes_for(:answer), question_id: question }.to change(user.answers, :count).by(1)
+        expect { post :create, answer: attributes_for(:answer), question_id: question, format: :js }.to change(user.answers, :count).by(1)
       end
 
 
-      it "render questions path template" do
-        post :create, answer: attributes_for(:answer), question_id: question
-        expect(response).to redirect_to(question_path(assigns(:question)))
+      it "renders answer show view" do
+        post :create, answer: attributes_for(:answer), question_id: question, format: :js
+        expect(response).to have_content @answer
       end
 
 
     end
     context "with invalid attributes" do
       it "added the new answer with invalid attributes" do
-        expect { post :create, answer: attributes_for(:invalid_answer), question_id: question }.not_to change(Answer, :count)
+        expect { post :create, answer: attributes_for(:invalid_answer), question_id: question, format: :js }.not_to change(Answer, :count)
       end
       it "redirect to the show view" do
         post :create, answer: attributes_for(:invalid_answer), question_id: question
-        expect(response).to redirect_to(question_path(assigns(:question)))
+        expect(response).to redirect_to(question_path(question))
       end
 
     end

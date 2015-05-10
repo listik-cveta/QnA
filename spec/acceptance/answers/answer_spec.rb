@@ -10,8 +10,18 @@ feature 'User features', %q{
   given(:another_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, user: user, question: question) }
-  scenario 'User try to give answer on a question' do
+
+
+  scenario 'User try to give answer on a question', js: true do
     sign_in(user)
+    visit question_path(question)
+    fill_in 'Body', with: 'This is answer on a question'
+    click_on 'Add answer'
+    expect(page).to have_content 'This is answer on a question'
+  end
+
+  scenario 'Another user try to give answer on a question', js: true do
+    sign_in(another_user)
     visit question_path(question)
     fill_in 'Body', with: 'This is answer on a question'
     click_on 'Add answer'
@@ -22,11 +32,6 @@ feature 'User features', %q{
   scenario 'User try to delete own answer' do
     sign_in(user)
     visit question_path(question)
-    #unless question.answers.empty?
-    #  expect(page).to have_selector('a', text: 'Delete answer')
-    #end
-    #click_on answer
-    #save_and_open_page
     click_on 'Delete answer'
     expect(page).to have_content 'Your answer has deleted'
 
@@ -44,5 +49,4 @@ feature 'User features', %q{
     visit question_path(question)
     expect(page).not_to have_selector('a', text: 'Delete answer')
   end
-
   end
