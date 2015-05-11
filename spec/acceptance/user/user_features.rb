@@ -21,7 +21,6 @@ feature 'User features', %q{
   end
 
 
-
   scenario 'User try to delete own answer' do
     sign_in(user)
     visit question_path(question)

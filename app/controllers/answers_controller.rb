@@ -14,9 +14,14 @@ class AnswersController < ApplicationController
       flash[:notice] = 'Answer successfully added'
     else
       flash[:alert] = 'Something wrong'
-    redirect_to question_path(@question)
+      redirect_to question_path(@question)
     end
   end
+
+  def update
+
+  end
+
 
   def destroy
     if @answer.destroy
