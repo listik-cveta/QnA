@@ -1,12 +1,12 @@
 h1= @question.title
 
 
-- if @question.answers.empty?
-  |No comments here
-- else
-  h3 Comments
-  .answers
-    =render 'answers'
+/- if @question.answers.empty?
+/  |No comments here
+/- else
+h3 Comments
+.answers
+  =render 'answers'
 
 br
 - if user_signed_in? && current_user.id == @question.user_id
