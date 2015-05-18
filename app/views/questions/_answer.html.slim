@@ -1,0 +1,6 @@
+.answer-block id="answer-#{answer.id}"
+  .answer-body = answer.body
+  - if user_signed_in? && current_user.id == answer.user_id
+   = link_to 'Delete answer', answer_path(answer), id: "delete_answer_#{answer.id}", method: :delete, remote: true
+   .answer-edit
+     = link_to 'Edit', answer_path(answer), id: "edit_answer_#{ answer.id }", method: :update, remote: true

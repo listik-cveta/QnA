@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
   let(:user1) { create(:user) }
-  let(:question) { create(:question, user: user) }
+  let!(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
   let(:answers) { create_list(:answer, 2, question: question) }
 
@@ -33,10 +33,10 @@ RSpec.describe AnswersController, type: :controller do
       it "added the new answer with invalid attributes" do
         expect { post :create, answer: attributes_for(:invalid_answer), question_id: question, format: :js }.not_to change(Answer, :count)
       end
-      it "redirect to the show view" do
-        post :create, answer: attributes_for(:invalid_answer), question_id: question
-        expect(response).to redirect_to(question_path(question))
-      end
+      # it "redirect to the show view" do
+      #   post :create, answer: attributes_for(:invalid_answer), question_id: question
+      #   #expect(response).to redirect_to(question_path(question))
+      # end
 
     end
   end
@@ -56,4 +56,28 @@ RSpec.describe AnswersController, type: :controller do
     end
 
   end
+
+  describe 'PATCH #update' do
+      before { sign_in(user) }
+      it 'assings the requested answer to @answer' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(assigns(:answer)).to eq(answer)
+    end
+
+    it 'assigns th question' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      patch :update, id: answer, question_id: question, answer: { body: 'new body'}, format: :js
+      answer.reload
+      expect(answer.body).to eq 'new body'
+    end
+
+    it 'render update template' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(response).to render_template :update
+    end
+    end
 end

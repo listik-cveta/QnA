@@ -1,6 +1,6 @@
-require 'rails_helper'
+require_relative '../acceptance_helper'
 
-feature 'User features', %q{
+feature 'Answer features', %q{
         User can create question
         User can give answer on question
         User can see list of questions
@@ -29,7 +29,7 @@ feature 'User features', %q{
   end
 
 
-  scenario 'User try to delete own answer' do
+  scenario 'User try to delete own answer', js: true do
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'
@@ -38,15 +38,20 @@ feature 'User features', %q{
   end
 
 
-
-   scenario 'User try to delete foreign answer' do
-     sign_in(another_user)
-     visit question_path(question)
-     expect(page).not_to have_selector('a', text: 'Delete answer')
-   end
   scenario 'User try to delete foreign answer' do
-    #sign_in(another_user)
+    sign_in(another_user)
     visit question_path(question)
     expect(page).not_to have_selector('a', text: 'Delete answer')
   end
+  scenario 'User try to delete foreign answer' do
+    visit question_path(question)
+    expect(page).not_to have_selector('a', text: 'Delete answer')
   end
+
+  scenario 'User try to create invalid answer', js: true do
+    sign_in(user)
+    visit question_path(question)
+    click_on 'Add answer'
+    expect(page).to have_content "Body is too short (minimum is 5 characters)"
+  end
+end

@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   end
 
   def create
+    #binding.pry
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
@@ -14,23 +15,17 @@ class AnswersController < ApplicationController
       flash[:notice] = 'Answer successfully added'
     else
       flash[:alert] = 'Something wrong'
-      redirect_to question_path(@question)
     end
   end
 
   def update
-
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
 
   def destroy
-    if @answer.destroy
-      flash[:notice] = 'Your answer has deleted'
-      redirect_to question_path(@answer.question)
-    else
-      flash[:alert] = 'You have not access to delete foreign answer '
-    end
-
+    @answer.destroy
   end
 
   private

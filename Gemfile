@@ -41,9 +41,10 @@ gem 'spring',        group: :development
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'selenium-webdriver'
   gem 'database_cleaner'
-  #gem 'pry-byebug'
+  gem 'capybara-webkit'
+  #gem 'selenium-webdriver'
+  gem 'pry-byebug'
 end
 
 
