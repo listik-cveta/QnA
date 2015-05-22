@@ -46,7 +46,7 @@ RSpec.describe AnswersController, type: :controller do
     it 'deletes by answer\'s owner' do
       sign_in(user)
       answer
-      expect { delete :destroy, id: answer }.to change(Answer, :count).by(-1)
+      expect { delete :destroy, id: answer }.to change(Answer, :count).by(-1), format: :js
     end
 
     it 'deletes answer by another user' do

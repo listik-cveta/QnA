@@ -17,7 +17,10 @@ feature 'Answer features', %q{
     visit question_path(question)
     fill_in 'Body', with: 'This is answer on a question'
     click_on 'Add answer'
-    expect(page).to have_content 'This is answer on a question'
+    expect(current_path).to eq question_path(question)
+    within '.answers' do
+      expect(page).to have_content 'This is answer on a question'
+    end
   end
 
   scenario 'Another user try to give answer on a question', js: true do
@@ -33,7 +36,7 @@ feature 'Answer features', %q{
     sign_in(user)
     visit question_path(question)
     click_on 'Delete answer'
-    expect(page).to have_content 'Your answer has deleted'
+    expect(page).to_not have_content answer.body
 
   end
 

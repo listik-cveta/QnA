@@ -7,7 +7,6 @@ class AnswersController < ApplicationController
   end
 
   def create
-    #binding.pry
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
@@ -28,8 +27,11 @@ class AnswersController < ApplicationController
     @answer.destroy
   end
 
-  private
+  def vote
+    @answer
+  end
 
+  private
 
   def load_answer
     @answer = Answer.find(params[:id])

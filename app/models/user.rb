@@ -6,4 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :answers, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :votes, dependent: :destroy
+
+  def voted_for?(object)
+    self.votes.where(votable: object).any?
+  end
+
 end

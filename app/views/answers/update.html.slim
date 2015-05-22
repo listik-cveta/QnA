@@ -1,4 +1,4 @@
-= form_for @answer do |f|
+p= form_for [@question, @answer], remote: true do |f|
   = f.label :body
   = f.text_area :body
   = f.submit 'Save'

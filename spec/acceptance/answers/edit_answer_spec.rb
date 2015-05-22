@@ -23,7 +23,7 @@ I'd like be able to edit my answer
   scenario 'sees link to Edit' do
     expect(page).to have_link 'Edit'
   end
-  scenario 'Author try to edit his answer', js: true do
+  scenario 'Author try to edit his answer' do
     click_on 'Edit'
     fill_in 'Answer', with: 'edited answer'
     click_on 'Save'
