@@ -1,9 +1,9 @@
 .answer-block id="answer-#{answer.id}"
   .answer-body = answer.body
   - if user_signed_in? && current_user.id == answer.user_id
-    p= link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+    p= link_to 'Edit answer', '', class: 'edit-answer-link', data: { answer_id: answer.id }
     p= form_for answer, remote: true, html: { id: "for_answer_edit_#{ answer.id }", style: "display: none" } do |f|
-      = f.label :body, 'Answer'
+      = f.label :body
       = f.text_area :body
       = f.submit 'Update'
     p= link_to 'Delete answer', answer_path(answer), id: "delete_answer_#{answer.id}", method: :delete, remote: true

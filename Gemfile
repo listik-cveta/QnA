@@ -58,4 +58,5 @@ end
 gem 'slim-rails'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
+#gem 'jazz_hands'
 #gem 'nokogiri'
