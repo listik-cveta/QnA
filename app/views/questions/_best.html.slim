@@ -1,0 +1,4 @@
+- if @question.answers.where(best: true).first.present?
+  .panel-heading
+    h3.panel-title The Best
+  .panel-body= @question.answers.where(best: true).first.body

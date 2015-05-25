@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_answer, only: [:edit, :update, :destroy]
-  before_action :authors_only, only: [:edit, :update, :destroy]
+  before_action :authors_only, only: [:edit, :update, :destroy, :best]
 
   def new
   end
@@ -27,8 +27,9 @@ class AnswersController < ApplicationController
     @answer.destroy
   end
 
-  def vote
-    @answer
+  def best
+    @answer.best_answer
+    @question = @answer.question
   end
 
   private

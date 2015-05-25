@@ -5,6 +5,10 @@ h1= @question.title
 /  |No comments here
 /- else
 h3 Comments
+
+div class="best panel panel-success"
+  = render 'best'
+
 .answers
   =render 'answers'
 
@@ -18,6 +22,3 @@ br
     p.answer-errors
     =f.text_area :body
     p= f.submit 'Add answer'
-
-
-

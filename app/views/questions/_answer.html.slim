@@ -7,3 +7,6 @@
       = f.text_area :body
       = f.submit 'Update'
     p= link_to 'Delete answer', answer_path(answer), id: "delete_answer_#{answer.id}", method: :delete, remote: true
+
+  - if @question.user_id == current_user.id && !@question.answers.where(best: true).first.present?
+    p= link_to 'Best answer', answer_path(answer), class: 'best-link', method: :put, remote: true, data: {answer_id: answer.id}

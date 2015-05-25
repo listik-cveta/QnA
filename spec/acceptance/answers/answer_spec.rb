@@ -10,6 +10,8 @@ feature 'Answer features', %q{
   given(:another_user) { create(:user) }
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, user: user, question: question) }
+  given(:answers) { create_list(:answer, 2, user: user, question: question) }
+  given(:best_answer) { create(:answer, user: user, question: question, best: true) }
 
 
   scenario 'User try to give answer on a question', js: true do
@@ -56,5 +58,12 @@ feature 'Answer features', %q{
     visit question_path(question)
     click_on 'Add answer'
     expect(page).to have_content "Body is too short (minimum is 5 characters)"
+  end
+
+  scenario 'Best answer should be first in list' do
+    sign_in(user)
+    visit question_path(question)
+    visit question_path(question)
+    expect(find('.answer-block', match: :first)).to have_content best_answer.body
   end
 end

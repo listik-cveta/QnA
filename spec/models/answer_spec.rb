@@ -9,15 +9,21 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of :question }
 
   describe '#best' do
+    let!(:user) { create(:user) }
     let!(:question) { create(:question, user: user) }
     let!(:answer) { create(:answer, question: question) }
-    let!(:old_best_answer) { create(:answer, question: question, best: true) }
-    before { answer.best }
+    let!(:previous_best_answer) { create(:answer, question: question, best: true) }
+    before { answer.best_answer }
 
 
     it 'should change answer to best' do
-      expect(answer.best?).to eq true
+      expect(answer.best_answer).to eq true
     end
+
+    it 'previous best answer should not to be best' do
+      expect(previous_best_answer).to_not eq true
+    end
+
 
     it 'should "best" only one answer' do
       expect(question.answers.where(best: true).count).to eq 1

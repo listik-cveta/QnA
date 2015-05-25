@@ -1,3 +1,5 @@
 - @question.answers.each do |answer|
-    = render partial: 'answer', object: answer
-
+ - if answer.best?
+  = render partial: 'answer', object: answer.best
+ - else
+  = render partial: 'answer', object: answer
