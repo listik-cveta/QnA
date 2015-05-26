@@ -41,12 +41,22 @@ gem 'spring',        group: :development
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'capybara-webkit'
+  #gem 'selenium-webdriver'
+  gem 'pry-byebug'
 end
 
 
+group :test do
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'launchy'
+end
 
 
-gem 'shoulda-matchers'
-#gem 'haml-rails'
 gem 'slim-rails'
 gem 'twitter-bootstrap-rails'
+gem 'devise'
+#gem 'jazz_hands'
+#gem 'nokogiri'

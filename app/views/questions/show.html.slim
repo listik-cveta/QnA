@@ -1,0 +1,24 @@
+h1= @question.title
+
+
+/- if @question.answers.empty?
+/  |No comments here
+/- else
+h3 Comments
+
+div class="best panel panel-success"
+  = render 'best'
+
+.answers
+  =render 'answers'
+
+br
+- if user_signed_in? && current_user.id == @question.user_id
+  = link_to 'Delete question', question_path(@question), method: :delete
+
+- if user_signed_in?
+  =form_for [@question, @question.answers.build], remote: true do |f|
+    =f.label :body
+    p.answer-errors
+    =f.text_area :body
+    p= f.submit 'Add answer'
