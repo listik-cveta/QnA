@@ -1,8 +1,0 @@
-$('.best').html('<%= j render 'questions/best' %>');
-$('.answer-body').html('<%= j render 'questions/answer' %>');
-$('.best-link').click(function (e) {
-    e.preventDefault();
-    $('.best-link').hide();
-    answer_id = $(this).data('answerId');
-    $(".best").prepend($('.answer' + answer_id));
-});
