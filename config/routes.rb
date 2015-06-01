@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :questions do
-    resources :answers, shallow: true
+    resources :answers, shallow: true do
+      member do
+        patch 'make_best'
+      end
+    end
+
   end
   #devise_for :users
   #root 'questions#index'
@@ -31,6 +36,9 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+
+
+
 
   # Example resource route with sub-resources:
   #   resources :products do

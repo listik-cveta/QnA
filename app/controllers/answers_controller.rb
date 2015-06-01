@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_answer, only: [:edit, :update, :destroy]
-  before_action :authors_only, only: [:edit, :update, :destroy, :best]
+  before_action :load_answer, only: [:edit, :update, :destroy, :make_best]
+  before_action :authors_only, only: [:edit, :update, :destroy]
 
   def new
   end
@@ -27,9 +27,13 @@ class AnswersController < ApplicationController
     @answer.destroy
   end
 
-  def best
-    @answer.best_answer
-    @question = @answer.question
+  def make_best
+      @question = @answer.question
+    if current_user.id == @question.user_id
+      @answer.best_answer
+    else
+      render status: :forbidden
+    end
   end
 
   private
