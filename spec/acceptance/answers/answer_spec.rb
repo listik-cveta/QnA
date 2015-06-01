@@ -43,15 +43,12 @@ feature 'Answer features', %q{
   end
 
 
-  scenario 'User try to delete foreign answer' do
+  scenario 'User try to delete foreign answer', js: true do
     sign_in(another_user)
     visit question_path(question)
     expect(page).not_to have_selector('a', text: 'Delete answer')
   end
-  scenario 'User try to delete foreign answer' do
-    visit question_path(question)
-    expect(page).not_to have_selector('a', text: 'Delete answer')
-  end
+
 
   scenario 'User try to create invalid answer', js: true do
     sign_in(user)
@@ -60,10 +57,4 @@ feature 'Answer features', %q{
     expect(page).to have_content "Body is too short (minimum is 5 characters)"
   end
 
-  scenario 'Best answer should be first in list' do
-    sign_in(user)
-    visit question_path(question)
-    visit question_path(question)
-    expect(find('.answer-block', match: :first)).to have_content best_answer.body
-  end
 end

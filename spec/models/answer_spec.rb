@@ -15,19 +15,22 @@ RSpec.describe Answer, type: :model do
     let!(:previous_best_answer) { create(:answer, question: question, best: true) }
     before { answer.best_answer }
 
-
-    it 'should change answer to best' do
-      expect(answer.best_answer).to eq true
+    it 'only question user can mark answer as best' do
+      expect(answer.best_answer.user_id).to eq question.user_id
     end
 
-    it 'previous best answer should not to be best' do
-      expect(previous_best_answer).to_not eq true
-    end
-
-
-    it 'should "best" only one answer' do
-      expect(question.answers.where(best: true).count).to eq 1
-    end
+    # it 'should change answer to best' do
+    #   expect(answer.best_answer).to eq true
+    # end
+    #
+    # it 'previous best answer should not to be best' do
+    #   expect(previous_best_answer).to_not eq true
+    # end
+    #
+    #
+    # it 'should "best" only one answer' do
+    #   expect(question.answers.where(best: true).count).to eq 1
+    # end
 
 
   end
